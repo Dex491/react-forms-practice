@@ -1,31 +1,76 @@
 import { useState } from "react";
 import "./App.css";
 
+const initialFormState = {
+  fullName: "",
+  address: "",
+  phoneNumber: "",
+  email: "",
+  complaint: "",
+  contact: "",
+  consent: false,
+};
+
 export default function App() {
-  
   //TODO: Add your state fields here
+  const [formState, setFormState] = useState(initialFormState);
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('Submit clicked', formState)
+    setFormState(initialFormState)
+  }
+
+
+  const handleChange = (event) => {
+
+    const targetName = event.target.name;
+    const targetValue = event.target.value;
+    const targetChecked = event.target.checked;
+
+    if (targetName === 'fullName') {
+      console.log(targetValue)
+      setFormState({...formState, fullName: targetValue})
+    }
+    if (targetName === 'address') {
+      setFormState({...formState, address: targetValue})
+    }
+    if (targetName === 'email') {
+      setFormState({...formState, email: targetValue})
+    }
+    if (targetName === "consent") {
+      setFormState({ ...formState, consent: targetChecked });
+    }
+    if (targetName === "phone") {
+      setFormState({ ...formState, phoneNumber: targetValue });
+    }
+    if (targetName === "submit") {
+      console.log("submit");
+    }
+  };
+
 
   return (
     <>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <h2>Complaining form!</h2>
         <div className="form__section-left">
           <label>
             Full name
-            <input type="text" name="name" required />
+            <input type="text" value={formState.fullName} name="fullName" required onChange={handleChange}/>
           </label>
           <label>
             Address
-            <input type="text" name="address" />
+            <input type="text" value={formState.address} name="address" onChange={handleChange} />
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" />
+            <input type="tel" name="phone" value={formState.phoneNumber} onChange={handleChange}/>
           </label>
 
           <label>
             Email
-            <input type="email" name="email" />
+            <input type="email" name="email" value={formState.email} onChange={handleChange} />
           </label>
         </div>
 
@@ -64,7 +109,13 @@ export default function App() {
 
           <label>
             I agree you take my data, and do whatever
-            <input type="checkbox" name="consent" id="consent" />
+            <input
+              type="checkbox"
+              name="consent"
+              id="consent"
+              checked={formState.consent}
+              onChange={handleChange}
+            />
           </label>
         </div>
         <input type="submit" value="Submit!" />
