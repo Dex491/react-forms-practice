@@ -1,54 +1,56 @@
-import { useState } from "react";
-import "./App.css";
+import { useState } from 'react';
+import './App.css';
 
 const initialFormState = {
-  fullName: "",
-  address: "",
-  phoneNumber: "",
-  email: "",
-  complaint: "",
-  contact: "",
-  consent: false,
+  fullName: '',
+  address: '',
+  phoneNumber: '',
+  email: '',
+  complaint: '',
+  contact: '',
+  consent: false
 };
 
 export default function App() {
   //TODO: Add your state fields here
   const [formState, setFormState] = useState(initialFormState);
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log('Submit clicked', formState)
-    setFormState(initialFormState)
-  }
+  const handleSubmit = event => {
+    event.preventDefault();
+    console.log('Submit clicked', formState);
+    setFormState(initialFormState);
+  };
 
-
-  const handleChange = (event) => {
-
+  const handleChange = event => {
     const targetName = event.target.name;
     const targetValue = event.target.value;
     const targetChecked = event.target.checked;
 
     if (targetName === 'fullName') {
-      console.log(targetValue)
-      setFormState({...formState, fullName: targetValue})
+      setFormState({ ...formState, fullName: targetValue });
     }
     if (targetName === 'address') {
-      setFormState({...formState, address: targetValue})
+      setFormState({ ...formState, address: targetValue });
     }
     if (targetName === 'email') {
-      setFormState({...formState, email: targetValue})
+      setFormState({ ...formState, email: targetValue });
     }
-    if (targetName === "consent") {
+    if (targetName === 'consent') {
       setFormState({ ...formState, consent: targetChecked });
     }
-    if (targetName === "phone") {
+    if (targetName === 'phone') {
       setFormState({ ...formState, phoneNumber: targetValue });
     }
-    if (targetName === "submit") {
-      console.log("submit");
+    if (targetName === 'complaint') {
+      setFormState({ ...formState, complaint: targetValue });
+    }
+    if (targetName === 'contact') {
+      setFormState({ ...formState, contact: targetValue });
+    }
+    if (targetName === 'submit') {
+      console.log('submit');
     }
   };
-
 
   return (
     <>
@@ -57,20 +59,41 @@ export default function App() {
         <div className="form__section-left">
           <label>
             Full name
-            <input type="text" value={formState.fullName} name="fullName" required onChange={handleChange}/>
+            <input
+              type="text"
+              value={formState.fullName}
+              name="fullName"
+              required
+              onChange={handleChange}
+            />
           </label>
           <label>
             Address
-            <input type="text" value={formState.address} name="address" onChange={handleChange} />
+            <input
+              type="text"
+              value={formState.address}
+              name="address"
+              onChange={handleChange}
+            />
           </label>
           <label>
             Phone Number
-            <input type="tel" name="phone" value={formState.phoneNumber} onChange={handleChange}/>
+            <input
+              type="tel"
+              name="phone"
+              value={formState.phoneNumber}
+              onChange={handleChange}
+            />
           </label>
 
           <label>
             Email
-            <input type="email" name="email" value={formState.email} onChange={handleChange} />
+            <input
+              type="email"
+              name="email"
+              value={formState.email}
+              onChange={handleChange}
+            />
           </label>
         </div>
 
@@ -81,28 +104,54 @@ export default function App() {
               name="complaint"
               rows="10"
               placeholder="You can complain here"
+              value={formState.complaint}
+              onChange={handleChange}
             ></textarea>
           </label>
 
           <div className="form__radio-group">
             <p>How do you want to be contacted? </p>
             <label>
-              <input type="radio" name="contact" value="phone" />
+              <input
+                type="radio"
+                name="contact"
+                value="phone"
+                checked={formState.contact === 'phone'}
+                onChange={handleChange}
+              />
               Phone
             </label>
 
             <label>
-              <input type="radio" name="contact" value="email" />
+              <input
+                type="radio"
+                name="contact"
+                value="email"
+                checked={formState.contact === 'email'}
+                onChange={handleChange}
+              />
               Email
             </label>
 
             <label>
-              <input type="radio" name="contact" value="post" />
+              <input
+                type="radio"
+                name="contact"
+                value="post"
+                checked={formState.contact === 'post'}
+                onChange={handleChange}
+              />
               Slow Mail
             </label>
 
             <label>
-              <input type="radio" name="contact" value="none" />
+              <input
+                type="radio"
+                name="contact"
+                value="none"
+                checked={formState.contact === 'none'}
+                onChange={handleChange}
+              />
               No contact!
             </label>
           </div>
